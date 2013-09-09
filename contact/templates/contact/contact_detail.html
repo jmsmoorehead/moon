@@ -1,0 +1,11 @@
+{% extends "contact/contact_base.html" %}
+
+{% block content %}
+
+Name: {{object.name}}
+{% for book in object.contactbook_set.all %}{% if forloop.first %}Books: {% endif %}{{book.book}} (<a href="{% url "contactbook_delete" pk=book.pk %}">delete</a>) {% endfor %}
+<a href="{% url "contact_update" pk=object.pk %}">Edit</a>
+<a href="{% url "contact_delete" pk=object.pk %}">Delete</a>
+<a href="{% url "contactbook_create" contact_id=object.pk %}">Add Book</a>
+
+{% endblock content %}

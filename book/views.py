@@ -7,31 +7,31 @@ from django.core.urlresolvers import reverse
 
 
 from .models import Book
-from .forms import CreateBookForm
+from .forms import BookForm
 
 
-class ListBooks(ListView):
+class BookList(ListView):
     model = Book
     
-class UpdateBook(UpdateView):
+class BookUpdate(UpdateView):
     model = Book
-    form_class = CreateBookForm
+    form_class = BookForm
 	
     def get_success_url(self):
 		return reverse('book_detail', kwargs={'pk': self.kwargs['pk']})
     
-class DeleteBook(DeleteView):
+class BookDelete(DeleteView):
     model = Book
 
     def get_success_url(self):
-        return reverse('list_books')
+        return reverse('book_list')
 		
-class DetailBook(DetailView):
+class BookDetail(DetailView):
     model = Book
     
-class CreateBook(CreateView):
+class BookCreate(CreateView):
 	model = Book
-	form_class = CreateBookForm
+	form_class = BookForm
 
 	def get_success_url(self):
-		return reverse('list_books')
+		return reverse('book_list')

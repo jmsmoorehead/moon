@@ -1,0 +1,10 @@
+{% extends "contact/contact_base.html" %}
+
+{% block content %}
+
+<a href="{% url "contact_create" %}">Create new contact</a>
+{% for object in object_list %}
+    <a href="{% url "contact_detail" pk=object.pk %}">{{object}}</href>
+{% endfor %}
+
+{% endblock content %}
