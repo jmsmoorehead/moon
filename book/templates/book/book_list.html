@@ -1,0 +1,5 @@
+
+<a href="{% url "book_create" %}">Create new book</a>
+{% for object in object_list %}
+    <a href="{% url "book_detail" pk=object.pk %}">{{object}}</href>
+{% endfor %}

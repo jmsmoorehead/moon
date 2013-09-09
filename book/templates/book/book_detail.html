@@ -1,0 +1,5 @@
+Name: {{object.name}}
+ISBN: {{object.isbn}}
+
+<a href="{% url "book_update" pk=object.pk %}">Edit</a>
+<a href="{% url "book_delete" pk=object.pk %}">Delete</a>
