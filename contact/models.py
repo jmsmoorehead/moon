@@ -1,7 +1,11 @@
 from django.db import models
 
+
+import datetime
+
 # Create your models here.
 from book.models import Book
+
 
 class Contact(models.Model):
     name = models.CharField(blank=True, max_length=100)

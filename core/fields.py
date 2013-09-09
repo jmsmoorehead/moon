@@ -1,3 +1,5 @@
+from django.db import models
+
 from .widgets import ISBNWidget
 
 class ISBNField(models.CharField):

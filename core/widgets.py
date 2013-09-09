@@ -1,6 +1,9 @@
+from django import forms
+
 class ISBNWidget(forms.TextInput):
 	def __init__(self, language=None, attrs={}):
 		super(ISBNWidget, self).__init__(attrs=attrs)
+		
 	def render(self, name, value, attrs={}):
 		if (not value) or len(str(value)) < 2:
 			return super(ISBNWidget, self).render(name, value, attrs)
@@ -13,3 +16,5 @@ class ISBNWidget(forms.TextInput):
 			(len(str(value)) == 10) and "13" or "10",
 			pyisbn.convert(value),
 			value
+			))
+			
