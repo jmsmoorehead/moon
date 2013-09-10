@@ -1,16 +1,9 @@
 from django import forms
 
-from .models import Contact, ContactBook
+from .models import Contact
 
 class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Contact
-        fields = ('name', )
-
-class ContactBookForm(forms.ModelForm):
-    
-    class Meta:
-        model = ContactBook
-        fields = ('book',)
-        
+        fields = ('first_name', 'last_name', 'phone', )

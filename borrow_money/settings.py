@@ -1,4 +1,4 @@
-# Django settings for book_loaner project.
+# Django settings for borrow_money project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -105,10 +105,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'book_loaner.urls'
+ROOT_URLCONF = 'borrow_money.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'book_loaner.wsgi.application'
+WSGI_APPLICATION = 'borrow_money.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -126,7 +126,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'book',
     'contact',
     'bootstrap3',
     # Uncomment the next line to enable the admin:

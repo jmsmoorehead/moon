@@ -1,23 +1,15 @@
 from django.db import models
 
 
-import datetime
 
 # Create your models here.
-from book.models import Book
 
 
 class Contact(models.Model):
-    name = models.CharField(blank=True, max_length=100)
-    books = models.ManyToManyField(Book, through='ContactBook')
+    first_name = models.CharField(blank=False, max_length=100)
+    last_name = models.CharField(blank=False, max_length=100)
+    phone = models.CharField(blank=True, max_length=100)
     
     def __unicode__(self):
-        return "%s" % (self.name)
+        return "%s %s" % (self.first_name, self.last_name)
     
-class ContactBook(models.Model):
-    contact = models.ForeignKey(Contact)    
-    book = models.ForeignKey(Book)
-    date_loaned = models.DateField(default=datetime.datetime.today)
-    
-    def __unicode__(self):
-        return "%s - %s" % (self.contact, self.book)

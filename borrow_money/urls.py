@@ -6,14 +6,13 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'book_loaner.views.home', name='home'),
-    # url(r'^book_loaner/', include('book_loaner.foo.urls')),
+    # url(r'^$', 'borrow_money.views.home', name='home'),
+    # url(r'^borrow_money/', include('borrow_money.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url(r'^book/', include('book.urls')),
     url(r'^contact/', include('contact.urls')),    
     url(r'^admin/', include(admin.site.urls)),
 )
