@@ -21,5 +21,6 @@ urlpatterns = patterns('',
 	
         
     url(r'^contact/', include('contact.urls')),    
+    url(r'^bank/', include('bank.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

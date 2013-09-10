@@ -1,0 +1,70 @@
+{% extends "bank/bank_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">Current Balance</div>
+  <div class="panel-body">
+    <p>$ {{current_balance|floatformat:2}}</p>
+  </div>
+
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Latest Withdrawls</div>
+  {% for withdrawl in withdrawls %}
+  {% if forloop.first %}
+  <table class="table">
+  <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
+  <tbody>
+  {% endif %}
+    <tr>
+        <td>{{withdrawl.contact}}</td>
+        <td>$ {{withdrawl.amount|floatformat:2}}</td>
+        <td> {{withdrawl.created }} </td>
+    </tr>
+  {% if forloop.last %}  
+  </tbody>
+  </table>
+  {% endif %}
+  {% endfor %}
+  
+</div>
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Latest Deposits</div>
+  {% for deposit in deposits %}
+  {% if forloop.first %}
+  
+  <table class="table">
+  <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
+  <tbody>
+  {% endif %}
+    <tr>
+        <td>{{deposit.contact}}</td>
+        <td>$ {{deposit.amount|floatformat:2}}</td>
+        <td> {{deposit.created }} </td>
+        
+    </tr>
+    {% if forloop.last %}  
+    
+  </tbody>
+  </table>
+  {% endif %}
+  {% endfor %}
+  
+</div>
+
+<div class="btn-group btn-group-lg">
+<a href="{% url "withdrawal_create" %}" class="btn btn-primary">
+        {% bootstrap_icon "plus" %} Create Withdrawal
+</a>
+<a href="{% url "deposit_create" %}" class="btn btn-primary">
+        {% bootstrap_icon "plus" %} Create Deposit
+</a>
+</div>
+
+{% endblock content %}

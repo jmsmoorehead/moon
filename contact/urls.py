@@ -5,7 +5,7 @@ from .views import (
 )
 
 urlpatterns = patterns('',
-	url(r'^all/$', ContactList.as_view(), name='contact_list'),
+	url(r'^$', ContactList.as_view(), name='contact_list'),
 	url(r'^add/$', ContactCreate.as_view(), name='contact_create'),
 	url(r'^delete/(?P<pk>\d+)/$', ContactDelete.as_view(), name='contact_delete'),
 	url(r'^update/(?P<pk>\d+)/$', ContactUpdate.as_view(), name='contact_update'),

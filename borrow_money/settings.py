@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'bank',
     'contact',
     'bootstrap3',
     # Uncomment the next line to enable the admin:

@@ -1,0 +1,14 @@
+{% extends "bank/bank_base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<form method="POST" action="." class="form">
+{% csrf_token %}
+{% bootstrap_form form %}
+{% block form_buttons %}
+
+{% endblock form_buttons %}
+</form>
+
+{% endblock content %}

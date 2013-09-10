@@ -9,6 +9,8 @@
 <ul class="nav nav-tabs">
   <li class="{% block home_tab %}{% endblock home_tab %}"><a href="{% url "home_page" %}">Home</a></li>
   <li class="{% block contact_tab %}{% endblock contact_tab %}"><a href="{% url "contact_list" %}">Contacts</a></li>
+  <li class="{% block bank_tab %}{% endblock bank_tab %}"><a href="{% url "bank_home" %}">Bank</a></li>
+  
 </ul>
 
     {% block messages %}
