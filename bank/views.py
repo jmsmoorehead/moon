@@ -7,10 +7,11 @@ from django.core.urlresolvers import reverse
 
 
 from braces.views import FormValidMessageMixin
-
+from contact.models import Contact
 
 from .forms import WithdrawalForm, DepositForm
 from .models import Withdrawal, Deposit
+from .utils import get_total_owed, get_owed, get_owe
 
 class BankHomeTemplate(TemplateView):
     template_name = "bank/bank_home.html"
@@ -19,15 +20,19 @@ class BankHomeTemplate(TemplateView):
         context = super(BankHomeTemplate, self).get_context_data(**kwargs)
         withdrawn = Withdrawal.objects.all().aggregate(Sum('amount'))['amount__sum']
         deposited = Deposit.objects.all().aggregate(Sum('amount'))['amount__sum']
-        if not withdrawn:
-            withdrawn = 0.00
-        if not deposited:
-            deposited = 0.00
             
         context['withdrawls'] = Withdrawal.objects.all()[:5]
         context['deposits'] = Deposit.objects.all()[:5]
-        context['current_balance'] = withdrawn - deposited
+        context['current_balance'] = (withdrawn or 0) - (deposited or 0)
         
+        contacts_withdrawal = Contact.objects.all().annotate(w_amount = Sum('withdrawal__amount')).order_by('id')
+        contacts_deposit = Contact.objects.all().annotate(d_amount=Sum('deposit__amount')).order_by('id')
+        contacts = get_total_owed(contacts_withdrawal, contacts_deposit)
+
+
+        context['contacts'] = contacts
+        context['contacts_owed'] = filter(get_owed, contacts)
+        context['contacts_owe'] = filter(get_owe, contacts)
         return context
 
 class WithdrawalCreate(FormValidMessageMixin, CreateView):

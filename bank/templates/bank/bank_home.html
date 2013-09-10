@@ -10,19 +10,62 @@
 
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">You Owe:</div>
+  {% for contact in contacts_owed %}
+  {% if forloop.first %}
+  <table class="table">
+  <thead><tr><td>Contact</td><td>Amount</td></tr></thead>
+  <tbody>
+  {% endif %}
+    <tr>
+        <td>{{contact}}</td>
+        <td>$ {{contact.amount|floatformat:2}}</td>
+    </tr>
+  {% if forloop.last %}  
+  </tbody>
+  </table>
+  {% endif %}
+  {% empty %}
+  <p>You don't owe any money!</p>
+  {% endfor %}
+  
+</div>
 
 <div class="panel panel-default">
-  <div class="panel-heading">Latest Withdrawls</div>
-  {% for withdrawl in withdrawls %}
+  <div class="panel-heading">You're Owed:</div>
+  {% for contact in contacts_owe %}
+  {% if forloop.first %}
+  <table class="table">
+  <thead><tr><td>Contact</td><td>Amount</td></tr></thead>
+  <tbody>
+  {% endif %}
+    <tr>
+        <td>{{contact}}</td>
+        <td>$ {{contact.amount|floatformat:2|slice:"1:"}}</td>
+    </tr>
+  {% if forloop.last %}  
+  </tbody>
+  </table>
+  {% endif %}
+  {% empty %}
+  <p>No one owes you money!</p>
+  {% endfor %}
+  
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Latest Withdrawals</div>
+  {% for withdrawal in withdrawls %}
   {% if forloop.first %}
   <table class="table">
   <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
   <tbody>
   {% endif %}
     <tr>
-        <td>{{withdrawl.contact}}</td>
-        <td>$ {{withdrawl.amount|floatformat:2}}</td>
-        <td> {{withdrawl.created }} </td>
+        <td>{{withdrawal.contact}}</td>
+        <td>$ {{withdrawal.amount|floatformat:2}}</td>
+        <td> {{withdrawal.created }} </td>
     </tr>
   {% if forloop.last %}  
   </tbody>
