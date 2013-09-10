@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block home_tab %}active{% endblock home_tab %}
+
+{% block content %}
+<div class="jumbotron">
+<div class="container">
+<h1>Welcome to borrow_money!</h1>
+<p>Start by adding your contacts</p>
+<p><a href="{% url "contact_create" %}" class="btn btn-primary btn-lg">Get started</a></p>
+
+</div>
+</div>
+{% endblock content %}

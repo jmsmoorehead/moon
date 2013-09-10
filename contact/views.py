@@ -5,6 +5,8 @@ from django.views.generic import (
 
 from django.core.urlresolvers import reverse
 
+from braces.views import FormValidMessageMixin
+
 from .models import Contact
 from .forms import ContactForm
 
@@ -20,17 +22,23 @@ class ContactDelete(DeleteView):
     def get_success_url(self):
         return reverse('contact_list')
 
-class ContactUpdate(UpdateView):
+class ContactUpdate(FormValidMessageMixin, UpdateView):
     model = Contact
     form_class = ContactForm
-
-    def get_success_url(self):
-		return reverse('contact_detail', kwargs={'pk': self.kwargs['pk']})
-		
-class ContactCreate(CreateView):
-    model = Contact
-    form_class = ContactForm
+    template_name = "contact/contact_update.html"
+    form_valid_message = 'Contact updated!'
+    
+    
         
+    def get_success_url(self):
+		return reverse('contact_update', kwargs={'pk': self.kwargs['pk']})
+		
+class ContactCreate(FormValidMessageMixin, CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = "contact/contact_create.html"
+    form_valid_message = 'Contact created!'
+
     def get_success_url(self):
 		return reverse('contact_list')
 

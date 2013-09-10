@@ -2,9 +2,16 @@
 
 {% block content %}
 
-<a href="{% url "contact_create" %}">Create new contact</a>
-{% for object in object_list %}
-    <a href="{% url "contact_detail" pk=object.pk %}">{{object}}</href>
-{% endfor %}
+<a class="btn btn-primary btn-lg" href="{% url "contact_create" %}">Create new contact</a>
+<table class="table table-striped table-hover">
+<thead>
+<tr><td>First Name</td><td>Last Name</td></tr>
+</thead>
 
+<tbody>
+{% for object in object_list %}
+<tr><td><a href="{% url "contact_update" pk=object.pk %}">{{object.first_name}}</href></td><td><a href="{% url "contact_update" pk=object.pk %}">{{object.last_name}}</td><tr>
+{% endfor %}
+</tbody>
+</table>
 {% endblock content %}

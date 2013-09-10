@@ -134,6 +134,17 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.INFO: 'alert-info',
+    messages.DEBUG: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-error',
+    
+}
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

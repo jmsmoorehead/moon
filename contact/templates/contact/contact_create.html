@@ -1,0 +1,14 @@
+{% extends "contact/contact_form.html" %}
+{% load bootstrap3 %}
+
+
+{% block form_buttons %}
+
+{% bootstrap_form_buttons %}
+        <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "plus" %} Create
+        </button>
+
+        
+{% end_bootstrap_form_buttons %}
+{% endblock form_buttons %}

@@ -6,6 +6,16 @@
     
 </head>
 <body>
+<ul class="nav nav-tabs">
+  <li class="{% block home_tab %}{% endblock home_tab %}"><a href="{% url "home_page" %}">Home</a></li>
+  <li class="{% block contact_tab %}{% endblock contact_tab %}"><a href="{% url "contact_list" %}">Contacts</a></li>
+</ul>
+
+    {% block messages %}
+    {% for message in messages %}
+    <div class="alert {{message.tags}}"> {{message}}</div>
+    {% endfor %}
+    {% endblock messages %}
     {% block content %}
     {% endblock content %}
 </body>

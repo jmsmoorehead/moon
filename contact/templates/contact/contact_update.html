@@ -1,0 +1,17 @@
+{% extends "contact/contact_form.html" %}
+{% load bootstrap3 %}
+
+
+{% block form_buttons %}
+
+{% bootstrap_form_buttons %}
+        <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "plus" %} Update
+        </button>
+        <a class="btn btn-danger" href="{% url "contact_delete" pk=object.pk %}">
+        {% bootstrap_icon "trash" %}  Delete
+        </a>
+
+        
+{% end_bootstrap_form_buttons %}
+{% endblock form_buttons %}

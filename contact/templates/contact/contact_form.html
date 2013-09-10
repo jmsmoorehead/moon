@@ -7,11 +7,9 @@
 <form method="POST" action="." class="form">
 {% csrf_token %}
 {% bootstrap_form form %}
-{% bootstrap_form_buttons %}
-        <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "plus" %} Submit
-        </button>
-{% end_bootstrap_form_buttons %}
+{% block form_buttons %}
+
+{% endblock form_buttons %}
 </form>
 
 {% endblock content %}
