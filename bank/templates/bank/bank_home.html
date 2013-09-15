@@ -65,7 +65,7 @@
     <tr>
         <td>{{withdrawal.contact}}</td>
         <td>$ {{withdrawal.amount|floatformat:2}}</td>
-        <td> {{withdrawal.created }} </td>
+        <td> {{withdrawal.date_created }} </td>
     </tr>
   {% if forloop.last %}  
   </tbody>
@@ -88,8 +88,8 @@
   {% endif %}
     <tr>
         <td>{{deposit.contact}}</td>
-        <td>$ {{deposit.amount|floatformat:2}}</td>
-        <td> {{deposit.created }} </td>
+        <td>$ {{deposit.amount|floatformat:2|slice:"1:"}}</td>
+        <td> {{deposit.date_created }} </td>
         
     </tr>
     {% if forloop.last %}  

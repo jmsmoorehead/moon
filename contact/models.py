@@ -1,7 +1,5 @@
 from django.db import models
 
-
-
 # Create your models here.
 
 
@@ -12,4 +10,3 @@ class Contact(models.Model):
     
     def __unicode__(self):
         return "%s %s" % (self.first_name, self.last_name)
-    

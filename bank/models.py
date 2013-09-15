@@ -5,25 +5,31 @@ import datetime
 
 from contact.models import Contact
 
-class Withdrawal(models.Model):
+TRANSFER_CHOICES = (
+    ('W', 'Withdrawal'),
+    ('D', 'Deposit'),
+)
+
+class WithdrawalManager(models.Manager):
+    def get_query_set(self):
+        return super(WithdrawalManager, self).get_query_set().filter(transfer_type='W')
+
+class DepositManager(models.Manager):
+    def get_query_set(self):
+        return super(DepositManager, self).get_query_set().filter(transfer_type='D')
+
+
+class Transfer(models.Model):
     amount = models.FloatField()
-    contact = models.ForeignKey(Contact)
-    created = models.DateField(default=datetime.datetime.today)
+    contact  = models.ForeignKey(Contact)
+    transfer_type = models.CharField(max_length=2, choices=TRANSFER_CHOICES)
+    date_created = models.DateField(default=datetime.datetime.today)
+    objects = models.Manager()
+    deposits = DepositManager()
+    withdrawals = WithdrawalManager()
     
     def __unicode__(self):
-        return "%s from %s on %s" % (self.amount, self.contact, self.created)
-    
-    class Meta:
-        ordering = ['-created']
+        return "%s: %s" % (self.contact, self.amount)
         
-class Deposit(models.Model):
-    amount = models.FloatField()
-    contact = models.ForeignKey(Contact)
-    created = models.DateField(default=datetime.datetime.today)
-
-    def __unicode__(self):
-        return "%s from %s on %s" % (self.amount, self.contact, self.created)
-
     class Meta:
-        ordering = ['-created']
-        
+        ordering = ['-date_created']

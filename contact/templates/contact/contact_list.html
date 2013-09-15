@@ -5,12 +5,12 @@
 <a class="btn btn-primary btn-lg" href="{% url "contact_create" %}">Create new contact</a>
 <table class="table table-striped table-hover">
 <thead>
-<tr><td>First Name</td><td>Last Name</td></tr>
+<tr><td>First Name</td><td>Last Name</td><td>Telephone</td></tr>
 </thead>
 
 <tbody>
 {% for object in object_list %}
-<tr><td><a href="{% url "contact_update" pk=object.pk %}">{{object.first_name}}</href></td><td><a href="{% url "contact_update" pk=object.pk %}">{{object.last_name}}</td><tr>
+<tr><td><a href="{% url "contact_update" pk=object.pk %}">{{object.first_name}}</href></td><td><a href="{% url "contact_update" pk=object.pk %}">{{object.last_name}}</td><td>{% if object.phone %}<a href="{% url "contact_update" pk=object.pk %}">{{object.phone|default_if_none:""}}</a>{% endif %}</td><tr>
 {% endfor %}
 </tbody>
 </table>

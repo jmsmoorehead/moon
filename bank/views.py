@@ -10,33 +10,27 @@ from braces.views import FormValidMessageMixin
 from contact.models import Contact
 
 from .forms import WithdrawalForm, DepositForm
-from .models import Withdrawal, Deposit
-from .utils import get_total_owed, get_owed, get_owe
+from .models import Transfer
 
 class BankHomeTemplate(TemplateView):
     template_name = "bank/bank_home.html"
     
     def get_context_data(self, **kwargs):
         context = super(BankHomeTemplate, self).get_context_data(**kwargs)
-        withdrawn = Withdrawal.objects.all().aggregate(Sum('amount'))['amount__sum']
-        deposited = Deposit.objects.all().aggregate(Sum('amount'))['amount__sum']
-            
-        context['withdrawls'] = Withdrawal.objects.all()[:5]
-        context['deposits'] = Deposit.objects.all()[:5]
-        context['current_balance'] = (withdrawn or 0) - (deposited or 0)
+
+        context['withdrawls'] = Transfer.withdrawals.all()[:5]
+        context['deposits'] = Transfer.deposits.all()[:5]
+        context['current_balance'] = Transfer.objects.all().aggregate(Sum('amount'))['amount__sum'] or 0.00
         
-        contacts_withdrawal = Contact.objects.all().annotate(w_amount = Sum('withdrawal__amount')).order_by('id')
-        contacts_deposit = Contact.objects.all().annotate(d_amount=Sum('deposit__amount')).order_by('id')
-        contacts = get_total_owed(contacts_withdrawal, contacts_deposit)
+        contacts = Contact.objects.all().annotate(amount = Sum('transfer__amount'))
 
 
-        context['contacts'] = contacts
-        context['contacts_owed'] = filter(get_owed, contacts)
-        context['contacts_owe'] = filter(get_owe, contacts)
+        context['contacts_owed'] = filter(lambda i: i.amount is not None and i.amount > 0, contacts)
+        context['contacts_owe'] = filter(lambda i: i.amount is not None and i.amount < 0, contacts)
         return context
 
 class WithdrawalCreate(FormValidMessageMixin, CreateView):
-    model = Withdrawal
+    model = Transfer
     form_class = WithdrawalForm
     template_name = "bank/withdrawal_create.html"
     form_valid_message = 'Withdrawal created!'
@@ -45,7 +39,7 @@ class WithdrawalCreate(FormValidMessageMixin, CreateView):
 		return reverse('bank_home')    
 
 class DepositCreate(FormValidMessageMixin, CreateView):
-    model = Deposit
+    model = Transfer
     form_class = DepositForm
     template_name = "bank/deposit_create.html"
     form_valid_message = 'Deposit created!'
