@@ -25,5 +25,7 @@ class WithdrawalForm(forms.ModelForm):
     def save(self, force_insert=False, force_update=False, commit=True):
         obj = super(WithdrawalForm, self).save(commit=False)
         obj.transfer_type = 'W'
+        if obj.amount < 0:
+            obj.amount = obj.amount * -1
         obj.save()
         return obj

@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<form method="POST" action="." class="form">
+<form method="POST" action="." class="form" role="form">
 {% csrf_token %}
 {% bootstrap_form form %}
 {% block form_buttons %}

@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 {% block content %}
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">Current Balance</div>
   <div class="panel-body">
     <p>$ {{current_balance|floatformat:2}}</p>
@@ -10,7 +10,7 @@
 
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">You Owe:</div>
   {% for contact in contacts_owed %}
   {% if forloop.first %}
@@ -32,7 +32,7 @@
   
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">You're Owed:</div>
   {% for contact in contacts_owe %}
   {% if forloop.first %}
@@ -54,7 +54,7 @@
   
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">Latest Withdrawals</div>
   {% for withdrawal in withdrawls %}
   {% if forloop.first %}
@@ -77,7 +77,7 @@
 
 
 
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">Latest Deposits</div>
   {% for deposit in deposits %}
   {% if forloop.first %}
@@ -101,13 +101,17 @@
   
 </div>
 
-<div class="btn-group btn-group-lg">
-<a href="{% url "withdrawal_create" %}" class="btn btn-primary">
-        {% bootstrap_icon "plus" %} Create Withdrawal
-</a>
-<a href="{% url "deposit_create" %}" class="btn btn-primary">
-        {% bootstrap_icon "plus" %} Create Deposit
-</a>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Create <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="{% url "withdrawal_create" %}">Create Withdrawal</a></li>
+    <li><a href="{% url "deposit_create" %}">Create Deposit</a></li>
+  </ul>
 </div>
+
+
 
 {% endblock content %}
