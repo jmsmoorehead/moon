@@ -5,6 +5,18 @@ from django.contrib import admin
 
 from django.views.generic import TemplateView
 
+from tastypie.api import Api
+
+
+from contact.api.resources import ContactResource
+from bank.api.resources import WithdrawalResource, DepositResource
+
+
+v1_api = Api(api_name='v1')
+v1_api.register(ContactResource())
+v1_api.register(WithdrawalResource())
+v1_api.register(DepositResource())
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -23,4 +35,6 @@ urlpatterns = patterns('',
     url(r'^contact/', include('contact.urls')),    
     url(r'^bank/', include('bank.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    (r'^api/', include(v1_api.urls)),
+    
 )
