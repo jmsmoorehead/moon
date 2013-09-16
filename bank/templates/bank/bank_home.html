@@ -4,17 +4,18 @@
 
 <div class="row">
     <div class="col-md-12">
-        <p></p>
         <div class="input-group">
+            <p>
+            
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             Create <span class="caret"></span>
           </button>
+          </p>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url "withdrawal_create" %}">Create Withdrawal</a></li>
             <li><a href="{% url "deposit_create" %}">Create Deposit</a></li>
           </ul>
         </div>
-        <p></p>
     </div>
 </div>
 
@@ -24,7 +25,7 @@
         <div class="panel panel-info">
           <div class="panel-heading">Current Balance</div>
           <div class="panel-body">
-            <h5>$ {{current_balance|floatformat:2}}</h5>
+            <p>$ {{current_balance|floatformat:2}}</p>
           </div>
 
         </div>
@@ -50,7 +51,10 @@
           </table>
           {% endif %}
           {% empty %}
-          <h5>You don't owe any money!</h5>
+          <div class="panel-body">
+          
+          <p>You don't owe any money!</p>
+          </div>
           {% endfor %}
   
         </div>
@@ -74,7 +78,10 @@
           </table>
           {% endif %}
           {% empty %}
-          <h5>No one owes you money!</h5>
+          <div class="panel-body">
+          
+          <p>No one owes you money!</p>
+          </div>
           {% endfor %}
   
         </div>
@@ -102,7 +109,10 @@
           </table>
           {% endif %}
           {% empty %}
-          <h5>No withdrawals done.</h5>
+          <div class="panel-body">
+          
+          <p>No withdrawals done.</p>
+          </div>
           {% endfor %}
         </div>
     </div>
@@ -130,7 +140,10 @@
           </table>
           {% endif %}
           {% empty %}
-          <h5>No deposits done.</h5>
+          <div class="panel-body">
+          
+          <p>No deposits done.</p>
+          </div>
           {% endfor %}
   
         </div>
