@@ -1,11 +1,12 @@
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie.resources import ModelResource
-from tastypie.validation import FormValidation
 from tastypie import fields
 
 
 from contact.api.resources import ContactResource
+
+from core.validation import ModelFormValidation
 
 from ..models import Transfer
 from ..forms import WithdrawalForm, DepositForm
@@ -24,11 +25,11 @@ class DepositResource(ModelResource):
         list_allowed_methods = ['get', 'post', 'put', 'delete', 'patch']
         authentication = Authentication()
         authorization = Authorization()    
-        validation = FormValidation(form_class=DepositForm)
+        validation = ModelFormValidation(form_class=DepositForm)
         fields = ['date_created', 'amount', 'contact', 'id']
         
     def obj_create(self, bundle, **kwargs):
-        bundle = super(DespositResource, self).obj_create(bundle, transfer_type='D', **kwargs)
+        bundle = super(DepositResource, self).obj_create(bundle, transfer_type='D', **kwargs)
         return bundle
         
     def dehydrate_amount(self, bundle, **kwargs):
@@ -46,7 +47,7 @@ class WithdrawalResource(ModelResource):
         list_allowed_methods = ['get', 'post', 'put', 'delete', 'patch']
         authentication = Authentication()
         authorization = Authorization()    
-        validation = FormValidation(form_class=WithdrawalForm)
+        validation = ModelFormValidation(form_class=WithdrawalForm)
         fields = ['date_created', 'amount', 'contact', 'id']
 
     def obj_create(self, bundle, **kwargs):
