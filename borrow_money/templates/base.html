@@ -13,11 +13,15 @@
         <a class="navbar-brand" href="{% url "home_page" %}">borrow_money</a>
       </div>
      </nav>
-<ul class="nav nav-tabs">
-  <li class="{% block contact_tab %}{% endblock contact_tab %}"><a href="{% url "contact_list" %}">Contacts</a></li>
-  <li class="{% block bank_tab %}{% endblock bank_tab %}"><a href="{% url "bank_home" %}">Bank</a></li>
+<div class="container">
+     
+    <ul class="nav nav-tabs">
+        <li class="{% block home_tab %}{% endblock home_tab %}"><a href="{% url "home_page" %}">Home</a></li>
+        
+      <li class="{% block contact_tab %}{% endblock contact_tab %}"><a href="{% url "contact_list" %}">Contacts</a></li>
+      <li class="{% block bank_tab %}{% endblock bank_tab %}"><a href="{% url "bank_home" %}">Bank</a></li>
   
-</ul>
+    </ul>
 
     {% block messages %}
     {% for message in messages %}
@@ -26,5 +30,6 @@
     {% endblock messages %}
     {% block content %}
     {% endblock content %}
+</div>
 </body>
 </html>

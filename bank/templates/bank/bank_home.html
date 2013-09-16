@@ -2,115 +2,142 @@
 {% load bootstrap3 %}
 {% block content %}
 
-<div class="panel panel-info">
-  <div class="panel-heading">Current Balance</div>
-  <div class="panel-body">
-    <p>$ {{current_balance|floatformat:2}}</p>
-  </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <p></p>
+        <div class="input-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Create <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url "withdrawal_create" %}">Create Withdrawal</a></li>
+            <li><a href="{% url "deposit_create" %}">Create Deposit</a></li>
+          </ul>
+        </div>
+        <p></p>
+    </div>
 </div>
 
-<div class="panel panel-info">
-  <div class="panel-heading">You Owe:</div>
-  {% for contact in contacts_owed %}
-  {% if forloop.first %}
-  <table class="table">
-  <thead><tr><td>Contact</td><td>Amount</td></tr></thead>
-  <tbody>
-  {% endif %}
-    <tr>
-        <td>{{contact}}</td>
-        <td>$ {{contact.amount|floatformat:2}}</td>
-    </tr>
-  {% if forloop.last %}  
-  </tbody>
-  </table>
-  {% endif %}
-  {% empty %}
-  <p>You don't owe any money!</p>
-  {% endfor %}
-  
-</div>
-
-<div class="panel panel-info">
-  <div class="panel-heading">You're Owed:</div>
-  {% for contact in contacts_owe %}
-  {% if forloop.first %}
-  <table class="table">
-  <thead><tr><td>Contact</td><td>Amount</td></tr></thead>
-  <tbody>
-  {% endif %}
-    <tr>
-        <td>{{contact}}</td>
-        <td>$ {{contact.amount|floatformat:2|slice:"1:"}}</td>
-    </tr>
-  {% if forloop.last %}  
-  </tbody>
-  </table>
-  {% endif %}
-  {% empty %}
-  <p>No one owes you money!</p>
-  {% endfor %}
-  
-</div>
-
-<div class="panel panel-info">
-  <div class="panel-heading">Latest Withdrawals</div>
-  {% for withdrawal in withdrawls %}
-  {% if forloop.first %}
-  <table class="table">
-  <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
-  <tbody>
-  {% endif %}
-    <tr>
-        <td>{{withdrawal.contact}}</td>
-        <td>$ {{withdrawal.amount|floatformat:2}}</td>
-        <td> {{withdrawal.date_created }} </td>
-    </tr>
-  {% if forloop.last %}  
-  </tbody>
-  </table>
-  {% endif %}
-  {% endfor %}
-  
-</div>
-
-
-
-<div class="panel panel-info">
-  <div class="panel-heading">Latest Deposits</div>
-  {% for deposit in deposits %}
-  {% if forloop.first %}
-  
-  <table class="table">
-  <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
-  <tbody>
-  {% endif %}
-    <tr>
-        <td>{{deposit.contact}}</td>
-        <td>$ {{deposit.amount|floatformat:2|slice:"1:"}}</td>
-        <td> {{deposit.date_created }} </td>
-        
-    </tr>
-    {% if forloop.last %}  
+<div class="row">
+    <div class="col-md-12">
     
-  </tbody>
-  </table>
-  {% endif %}
-  {% endfor %}
+        <div class="panel panel-info">
+          <div class="panel-heading">Current Balance</div>
+          <div class="panel-body">
+            <h5>$ {{current_balance|floatformat:2}}</h5>
+          </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">You Owe:</div>
+          {% for contact in contacts_owed %}
+          {% if forloop.first %}
+          <table class="table">
+          <thead><tr><td>Contact</td><td>Amount</td></tr></thead>
+          <tbody>
+          {% endif %}
+            <tr>
+                <td><a href='{% url "contact_update" pk=contact.pk %}'>{{contact}}</a></td>
+                <td>$ {{contact.amount|floatformat:2}}</td>
+            </tr>
+          {% if forloop.last %}  
+          </tbody>
+          </table>
+          {% endif %}
+          {% empty %}
+          <h5>You don't owe any money!</h5>
+          {% endfor %}
   
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="panel panel-info">
+          <div class="panel-heading">You're Owed:</div>
+          {% for contact in contacts_owe %}
+          {% if forloop.first %}
+          <table class="table">
+          <thead><tr><td>Contact</td><td>Amount</td></tr></thead>
+          <tbody>
+          {% endif %}
+            <tr>
+                <td><a href='{% url "contact_update" pk=contact.pk %}'>{{contact}}</a></td>
+                <td>$ {{contact.amount|floatformat:2|slice:"1:"}}</td>
+            </tr>
+          {% if forloop.last %}  
+          </tbody>
+          </table>
+          {% endif %}
+          {% empty %}
+          <h5>No one owes you money!</h5>
+          {% endfor %}
+  
+        </div>
+    </div>
 </div>
 
+<div class="row">
+    <div class="col-md-6">
+    
+        <div class="panel panel-info">
+          <div class="panel-heading">Latest Withdrawals</div>
+          {% for withdrawal in withdrawls %}
+          {% if forloop.first %}
+          <table class="table">
+          <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
+          <tbody>
+          {% endif %}
+            <tr>
+                <td><a href='{% url "contact_update" pk=withdrawal.contact.pk %}'>{{withdrawal.contact}}</a></td>
+                <td>$ {{withdrawal.amount|floatformat:2}}</td>
+                <td> {{withdrawal.date_created }} </td>
+            </tr>
+          {% if forloop.last %}  
+          </tbody>
+          </table>
+          {% endif %}
+          {% empty %}
+          <h5>No withdrawals done.</h5>
+          {% endfor %}
+        </div>
+    </div>
 
-<div class="btn-group">
-  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    Create <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li><a href="{% url "withdrawal_create" %}">Create Withdrawal</a></li>
-    <li><a href="{% url "deposit_create" %}">Create Deposit</a></li>
-  </ul>
+    <div class="col-md-6">
+
+        <div class="panel panel-info">
+          <div class="panel-heading">Latest Deposits</div>
+          {% for deposit in deposits %}
+          {% if forloop.first %}
+  
+          <table class="table">
+          <thead><tr><td>Contact</td><td>Amount</td><td>Date</td></tr></thead>
+          <tbody>
+          {% endif %}
+            <tr>
+                <td><a href='{% url "contact_update" pk=deposit.contact.pk %}'>{{deposit.contact}}</a></td>
+                <td>$ {{deposit.amount|floatformat:2|slice:"1:"}}</td>
+                <td> {{deposit.date_created }} </td>
+        
+            </tr>
+            {% if forloop.last %}  
+    
+          </tbody>
+          </table>
+          {% endif %}
+          {% empty %}
+          <h5>No deposits done.</h5>
+          {% endfor %}
+  
+        </div>
+
+    </div>
 </div>
+
 
 
 
